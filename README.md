@@ -28,5 +28,12 @@ trap cleanup EXIT
 # Use
 # GPG
 
+# Docker Example
+
+docker run --rm \
+        -v $FORWARDED_SOCK:/root/.gnupg/S.gpg-agent \
+        -it YOUR_IMAGE YOUR_SCRIPT
+
+
 ```
 
