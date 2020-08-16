@@ -1,11 +1,12 @@
-LOCAL_SOCK="$APPDATA\\gnupg\\S.gpg-agent.extra"
+export PATH=/usr/bin
 
-TEMP_PORT=$((31000 + $$ % 1000))
+export GPG_AGENT_SOCK="$APPDATA\\gnupg\\S.gpg-agent.extra"
+export LISTEN_PORT=$((31000 + $$ % 1000))
 
-./socat TCP-LISTEN:$TEMP_PORT,bind=127.0.0.1 "UNIX-CONNECT:$LOCAL_SOCK" &
+node /gpg-agent-relay/app.js &
 pid_a=$!
 
-./putty -R 31000:localhost:$TEMP_PORT
+/usr/bin/putty -R 31000:localhost:$LISTEN_PORT
 
 kill $pid_a
 
